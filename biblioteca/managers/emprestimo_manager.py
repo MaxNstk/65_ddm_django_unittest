@@ -7,7 +7,6 @@ from biblioteca.exceptions.limite_emprestimos_exception import LimiteEmprestimos
 from biblioteca.exceptions.livro_sem_estoque_exception import LivroSemEstoqueException
 
 from biblioteca.models.cliente import Cliente
-from biblioteca.models.emprestimo import Emprestimo
 from biblioteca.models.estoque_movimento import EstoqueMovimento
 from biblioteca.models.livro import Livro
 
@@ -16,11 +15,12 @@ class EmprestimoManager(models.Manager):
 
     def emprestar(self, 
         livro:Livro, cliente:Cliente, 
-        data_emprestimo:date=datetime.today(), 
-        data_estimada:date=(datetime.today()-datetime.timedelta(days=30)),
+        data_emprestimo:date=datetime.datetime.today(), 
+        data_estimada:date=(datetime.datetime.today()-datetime.timedelta(days=30)),
         qtd_solicitada:int=1,
-    )-> Emprestimo:
-        
+    ):
+        from biblioteca.models.emprestimo import Emprestimo
+
         # validando cliente
         if cliente.get_qtd_emprestimos_disponiveis() < qtd_solicitada:
             raise LimiteEmprestimosException(f"O cliente {cliente.nome_completo} \
