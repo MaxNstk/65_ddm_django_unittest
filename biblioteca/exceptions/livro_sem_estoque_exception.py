@@ -1,0 +1,2 @@
+class LivroSemEstoqueException(Exception):
+    pass

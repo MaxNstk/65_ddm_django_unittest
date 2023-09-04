@@ -11,3 +11,10 @@ class Cliente(models.Model):
     limite_emprestimos_simultaneos = models.IntegerField(default=2)
 
     emprestimos = models.ManyToManyField("Livro", through="Emprestimo")
+
+    def get_qtd_emprestimos_disponiveis(self):
+        return self.emprestimos.filter(data_devolucao__isnull=False)
+
+    def emprestar(self, **kwargs):
+        from biblioteca.models import Emprestimo
+        return Emprestimo.emprestar(cliente=self, **kwargs)

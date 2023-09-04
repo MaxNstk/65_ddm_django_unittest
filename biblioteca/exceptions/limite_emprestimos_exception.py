@@ -1,0 +1,2 @@
+class LimiteEmprestimosException(Exception):
+    pass
