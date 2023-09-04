@@ -14,6 +14,7 @@ class EstoqueMovimento(models.Model):
     livro = models.ForeignKey('Livro', on_delete=models.DO_NOTHING)
     quantidade = models.IntegerField(default=1)
     emprestimo = models.ForeignKey('Emprestimo', on_delete=models.DO_NOTHING, null=True, blank=True)
+    entrada_livros = models.ForeignKey('EntradaLivros', on_delete=models.DO_NOTHING, null=True, blank=True)
     tipo = models.IntegerField(choices=tipos)
 
     # classmethod
