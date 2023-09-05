@@ -13,7 +13,8 @@ class Cliente(models.Model):
     emprestimos = models.ManyToManyField("Livro", through="Emprestimo")
 
     def get_qtd_emprestimos_disponiveis(self):
-        emprestimos = self.emprestimos.filter(data_devolucao__isnull=False)
+        emprestimos = self.emprestimos.all()
+        emprestimos = emprestimos.filter(data_devolucao__isnull=False)
         return emprestimos.aggregate(
             models.Sum('quantidade'))['quantidade__sum'] or 0
 

@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.query import QuerySet
 from django.utils import timezone
 from datetime import date, timedelta
 import datetime
@@ -34,4 +35,3 @@ class EmprestimoManager(models.Manager):
         
         return Emprestimo.objects.create(livro=livro, cliente=cliente, quantidade=quantidade,
                    data_emprestimo=data_emprestimo, data_estimada_devolucao=data_estimada_devolucao)
-    
