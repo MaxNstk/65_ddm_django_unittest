@@ -1,5 +1,7 @@
 from django.db import models
 
+from biblioteca.models.estoque import Estoque
+
 
 class Livro(models.Model):
     nome = models.CharField(max_length=255, verbose_name="Nome do livro")
@@ -16,3 +18,7 @@ class Livro(models.Model):
     def emprestar(self, **kwargs):
         from biblioteca.models.emprestimo import Emprestimo
         return Emprestimo.objects.emprestar(livro=self, **kwargs)
+    
+    def save(self, *args, **kwargs) -> None:
+        super().save(*args, **kwargs)
+        Estoque.objects.get_or_create(livro=self)

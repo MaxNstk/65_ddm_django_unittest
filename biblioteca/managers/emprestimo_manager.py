@@ -16,22 +16,22 @@ class EmprestimoManager(models.Manager):
     def emprestar(self, 
         livro:Livro, cliente:Cliente, 
         data_emprestimo:date=datetime.datetime.today(), 
-        data_estimada:date=(datetime.datetime.today()-datetime.timedelta(days=30)),
-        qtd_solicitada:int=1,
+        data_estimada_devolucao:date=(datetime.datetime.today()-datetime.timedelta(days=30)),
+        quantidade:int=1,
     ):
         from biblioteca.models.emprestimo import Emprestimo
 
         # validando cliente
-        if cliente.get_qtd_emprestimos_disponiveis() < qtd_solicitada:
+        if cliente.get_qtd_emprestimos_disponiveis() < quantidade:
             raise LimiteEmprestimosException(f"O cliente {cliente.nome_completo} \
                                               não pode mais realizar emprestimos")
         
         # validando livro
         estoque_disponivel = livro.get_estoque_disponivel()
-        if estoque_disponivel < qtd_solicitada:
+        if estoque_disponivel < quantidade:
             raise LivroSemEstoqueException(f"O livro {livro.nome} não tem estoque suficiente. \
-                                Solicitado {qtd_solicitada}, disponível {estoque_disponivel}")
+                                Solicitado {quantidade}, disponível {estoque_disponivel}")
         
-        return Emprestimo.objects.create(livro=livro, cliente=cliente, quantidade=qtd_solicitada,
-                   data_emprestimo=data_emprestimo, data_estimada=data_estimada)
+        return Emprestimo.objects.create(livro=livro, cliente=cliente, quantidade=quantidade,
+                   data_emprestimo=data_emprestimo, data_estimada_devolucao=data_estimada_devolucao)
     

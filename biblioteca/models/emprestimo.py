@@ -5,6 +5,7 @@ from biblioteca.managers.emprestimo_manager import EmprestimoManager
 
 
 class Emprestimo(models.Model):
+    
     livro = models.ForeignKey("Livro", on_delete=models.DO_NOTHING)
     cliente = models.ForeignKey("Cliente", on_delete=models.DO_NOTHING)
     quantidade = models.IntegerField(default=1)
