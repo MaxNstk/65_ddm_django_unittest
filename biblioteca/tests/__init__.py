@@ -1,2 +1,3 @@
 from .emprestimo_test import EmprestimoTestCase
 from .entrada_livros_test import MovimentacaoEstoqueTestCase
+from .api_entrada_livros_test import ApiEntradaLivrosTestCase

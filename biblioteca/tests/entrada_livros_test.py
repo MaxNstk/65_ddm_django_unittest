@@ -1,11 +1,12 @@
-from django.test import TestCase
-
 from biblioteca.models.user import User
 from biblioteca.models.emprestimo import Emprestimo
 from biblioteca.models.entrada_livros import EntradaLivros
 from biblioteca.models.livro import Livro
 from biblioteca.tests.generic_test import GenericTestCase
 
+from rest_framework.test import APIRequestFactory
+from rest_framework import status 
+from rest_framework.authtoken.models import Token
 
 class MovimentacaoEstoqueTestCase(GenericTestCase):
 
@@ -29,4 +30,3 @@ class MovimentacaoEstoqueTestCase(GenericTestCase):
         )
 
         self.assertEqual(self.livro_harry_potter_1.estoque.quantidade, 9)
-
