@@ -7,7 +7,7 @@ from django.db import models
 from biblioteca.exceptions.limite_emprestimos_exception import LimiteEmprestimosException
 from biblioteca.exceptions.livro_sem_estoque_exception import LivroSemEstoqueException
 
-from biblioteca.models.cliente import Cliente
+from biblioteca.models.user import User
 from biblioteca.models.estoque_movimento import EstoqueMovimento
 from biblioteca.models.livro import Livro
 
@@ -15,7 +15,7 @@ from biblioteca.models.livro import Livro
 class EmprestimoManager(models.Manager):
 
     def emprestar(self, 
-        livro:Livro, cliente:Cliente, 
+        livro:Livro, cliente:User, 
         data_emprestimo:date=datetime.datetime.today(), 
         data_estimada_devolucao:date=(datetime.datetime.today()-datetime.timedelta(days=30)),
         quantidade:int=1,

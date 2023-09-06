@@ -9,7 +9,7 @@ class Livro(models.Model):
     sinopse = models.TextField(null=True, blank=True)
     data_lancamento = models.DateField(verbose_name="Nome do autor")
 
-    emprestimos = models.ManyToManyField("Cliente", through="Emprestimo")
+    emprestimos = models.ManyToManyField("User", through="Emprestimo")
 
     def get_estoque_disponivel(self):
         from biblioteca.models.estoque import Estoque

@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from biblioteca.models.cliente import Cliente
+from biblioteca.models.user import User
 from biblioteca.models.entrada_livros import EntradaLivros
 from biblioteca.models.livro import Livro
 
@@ -10,11 +10,14 @@ class GenericTestCase(TestCase):
     def setUp(self) -> None:
         super().setUp()
 
-        self.cliente_max = Cliente.objects.create(
+        self.cliente_max = User.objects.create_user(
             cpf='09479306980',
             nome_completo='Max Starke',
             data_nascimento='2022-05-29',
-            limite_emprestimos_simultaneos=10
+            limite_emprestimos_simultaneos=10,
+            username='max',
+            email='max@gmail.com',
+            password='supersenha'
         )
         
         self.livro_harry_potter_1 = Livro.objects.create(

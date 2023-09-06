@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from biblioteca.models.cliente import Cliente
+from biblioteca.models.user import User
 from biblioteca.models.emprestimo import Emprestimo
 from biblioteca.models.entrada_livros import EntradaLivros
 from biblioteca.models.livro import Livro
@@ -29,3 +29,4 @@ class MovimentacaoEstoqueTestCase(GenericTestCase):
         )
 
         self.assertEqual(self.livro_harry_potter_1.estoque.quantidade, 9)
+

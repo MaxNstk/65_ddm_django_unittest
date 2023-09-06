@@ -1,6 +1,5 @@
-from .usuario import Usuario
 from .livro import Livro
-from .cliente import Cliente
+from .user import User
 from .estoque import Estoque
 from .estoque_movimento import EstoqueMovimento
 from .entrada_livros import EntradaLivros
