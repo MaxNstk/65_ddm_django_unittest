@@ -3,6 +3,7 @@ from django.test import TestCase
 from biblioteca.models.user import User
 from biblioteca.models.entrada_livros import EntradaLivros
 from biblioteca.models.livro import Livro
+from django.test import Client
 
 
 class GenericTestCase(TestCase):

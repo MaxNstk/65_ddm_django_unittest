@@ -20,6 +20,7 @@ from rest_framework.authtoken import views as rf_views
 
 from rest_framework.routers import SimpleRouter
 from biblioteca.api import views
+from biblioteca.views import teste_view
 
 
 router = SimpleRouter()
@@ -36,5 +37,7 @@ urlpatterns = router.urls
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-token-auth/', rf_views.obtain_auth_token),
-    path("api/v1/", include(router.urls))
+    path("api/v1/", include(router.urls)),
+    path("teste/", teste_view)
+
 ]
