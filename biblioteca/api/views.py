@@ -8,18 +8,14 @@ from rest_framework.viewsets import ModelViewSet
 class LoginRequiredModelViewSet(ModelViewSet):
     authentication_classes = (authentication.SessionAuthentication,authentication.TokenAuthentication)
     permission_classes = (permissions.IsAuthenticated,)
-    
-
 
 class EstoqueViewSet(LoginRequiredModelViewSet):
     queryset = Estoque.objects.order_by('pk')
     serializer_class = EstoqueSerializer
 
-
 class LivroViewSet(LoginRequiredModelViewSet):
     queryset = Livro.objects.order_by('pk')
     serializer_class = LivroSerializer
-
 
 class UserViewSet(LoginRequiredModelViewSet):
     queryset = User.objects.order_by('pk')

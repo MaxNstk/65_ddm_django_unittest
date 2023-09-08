@@ -1,16 +1,10 @@
-from django.test import Client
 from django.urls import reverse
-
 from biblioteca.models.user import User
-from biblioteca.models.emprestimo import Emprestimo
-from biblioteca.models.entrada_livros import EntradaLivros
 from biblioteca.models.livro import Livro
-from biblioteca.tests.generic_test import GenericTestCase
-
-from rest_framework.test import APIRequestFactory
 from rest_framework import status 
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APITestCase
+import json
 
 class ApiEntradaLivrosTestCase(APITestCase):
 
@@ -51,14 +45,31 @@ class ApiEntradaLivrosTestCase(APITestCase):
         response = self.client.get(reverse('user-list'), format='json')
         self.assertEquals(response.status_code, status.HTTP_200_OK)
         
+        
         response = self.client.post(reverse('livro-list'), {'algo_sem_sentido':'AAAAAAAAA'}, format='json')
         self.assertEquals(response.status_code, status.HTTP_400_BAD_REQUEST)
 
         response = self.client.post(reverse('livro-list'),
-                                {'nome':'meu livro',
-                                'autor':'eu mesmo',
-                                'sinopse':'é isso',
+                                {'nome':'teste',
+                                'autor':'teste',
+                                'sinopse':'teste',
                                 'data_lancamento':'2023-06-06'}
         , format='json')
         self.assertEquals(response.status_code, status.HTTP_201_CREATED)
+
+        livro_id = json.dumps(response.data['id'])
+        response = self.client.get(reverse('livro-detail', 
+            kwargs={
+                'pk':livro_id 
+            }
+            ), format='json')
+        
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
+
+        self.assertJSONEqual(json.dumps(response.data),
+            json.dumps({'id': 3, 'nome': 'teste', 'autor': 'teste', 'sinopse': 'teste',
+              'data_lancamento': '2023-06-06', 'emprestimos': []})
+        )
+        
+        
     

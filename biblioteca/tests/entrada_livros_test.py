@@ -11,6 +11,12 @@ from rest_framework.authtoken.models import Token
 class MovimentacaoEstoqueTestCase(GenericTestCase):
 
     def test_livro_movimentou_estoque(self):
+
+        self.assertEqual(Livro.objects.count(), 2)
+        self.assertTrue(User.objects.count() == 1)
+
+        # self.assert
+
         
         EntradaLivros.objects.create(livro=self.livro_harry_potter_1, quantidade=10)
         self.assertEqual(self.livro_harry_potter_1.estoque.quantidade, 10)
@@ -30,3 +36,4 @@ class MovimentacaoEstoqueTestCase(GenericTestCase):
         )
 
         self.assertEqual(self.livro_harry_potter_1.estoque.quantidade, 9)
+

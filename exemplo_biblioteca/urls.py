@@ -38,4 +38,3 @@ urlpatterns = [
     path('api-token-auth/', rf_views.obtain_auth_token),
     path("api/v1/", include(router.urls))
 ]
-print

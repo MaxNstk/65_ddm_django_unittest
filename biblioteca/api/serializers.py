@@ -9,15 +9,13 @@ class EstoqueSerializer(ModelSerializer):
         depth = 2
         fields = '__all__'
 
-
 class LivroSerializer(ModelSerializer):
 
     class Meta:
         model = Livro
         depth = 2
         fields = '__all__'
-
-
+        
 class UserSerializer(ModelSerializer):
 
     class Meta:
