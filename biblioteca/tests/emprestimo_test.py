@@ -4,6 +4,8 @@ from biblioteca.models.user import User
 from biblioteca.models.livro import Livro
 from django.test import Client
 
+class UserRegistrationForm:
+    pass
 
 class EmprestimoTestCase(TestCase):
 
@@ -41,5 +43,28 @@ class EmprestimoTestCase(TestCase):
         self.assertTemplateUsed(response, "teste.html")  
         self.assertContains(response, "Harry Potter e a Pedra Filosofal")
         self.assertEqual(len(response.context["livros"]), 2)
-    
 
+    def test_redirect_after_login(self):
+        self.client = Client()
+        login_data = {"username": "max", "password": "supersenha"}
+        response = self.client.post("/login/", data=login_data, follow=True) 
+        self.assertRedirects(response, "/dashboard/")
+
+def test_user_registration_form(self):
+    form_data = {
+        "cpf": "12345678901",
+        "nome_completo": "João da Silva",
+        "data_nascimento": "1990-01-01",
+        "username": "joao",
+        "email": "joao@example.com",
+        "password1": "senhasegura",
+        "password2": "senhasegura",
+    }
+    form = UserRegistrationForm(data=form_data)
+    self.assertTrue(form.is_valid())
+
+def test_user_authentication(self):
+    self.client = Client()
+    login_data = {"username": "max", "password": "supersenha"}
+    response = self.client.post("/login/", data=login_data, follow=True)
+    self.assertTrue(response.context["user"].is_authenticated)
